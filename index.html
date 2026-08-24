@@ -3,455 +3,264 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Apni Kirana Store</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #f5f7f5;
-      color: #222;
-    }
-
-    header {
-      background: #198754;
-      color: white;
-      padding: 18px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    header h1 {
-      font-size: 24px;
-    }
-
-    .cart-btn {
-      background: white;
-      color: #198754;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #dff7e8, #fff);
-      padding: 55px 5%;
-      text-align: center;
-    }
-
-    .hero h2 {
-      color: #198754;
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .search {
-      width: 90%;
-      max-width: 500px;
-      padding: 13px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    .products {
-      padding: 35px 5%;
-    }
-
-    .products h2 {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-    }
-
-    .product {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    }
-
-    .product .emoji {
-      font-size: 55px;
-      margin-bottom: 10px;
-    }
-
-    .product h3 {
-      margin-bottom: 8px;
-    }
-
-    .price {
-      color: #198754;
-      font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 12px;
-    }
-
-    .add-btn {
-      background: #198754;
-      color: white;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 7px;
-      cursor: pointer;
-    }
-
-    .add-btn:hover {
-      background: #146c43;
-    }
-
-    .about {
-      background: white;
-      padding: 35px 5%;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .about h2 {
-      color: #198754;
-      margin-bottom: 12px;
-    }
-
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 30px;
-    }
-
-    /* Cart */
-    .cart {
-      position: fixed;
-      right: -400px;
-      top: 0;
-      width: 350px;
-      max-width: 90%;
-      height: 100%;
-      background: white;
-      z-index: 20;
-      padding: 25px;
-      box-shadow: -4px 0 15px rgba(0,0,0,0.2);
-      transition: 0.3s;
-      overflow-y: auto;
-    }
-
-    .cart.open {
-      right: 0;
-    }
-
-    .cart h2 {
-      margin-bottom: 20px;
-      color: #198754;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
-      padding: 12px 0;
-    }
-
-    .remove-btn {
-      background: #dc3545;
-      color: white;
-      border: none;
-      padding: 5px 8px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .close-btn {
-      float: right;
-      border: none;
-      background: #eee;
-      padding: 7px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .checkout {
-      width: 100%;
-      background: #25d366;
-      color: white;
-      border: none;
-      padding: 13px;
-      margin-top: 20px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    @media (max-width: 600px) {
-      .hero h2 {
-        font-size: 28px;
-      }
-
-      header h1 {
-        font-size: 19px;
-      }
-    }
-  </style>
+  <!-- CSS file -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+  <!-- Header -->
   <header>
     <h1>🛒 Apni Kirana Store</h1>
+
     <button class="cart-btn" onclick="openCart()">
-      🛍️ Cart (<span id="cartCount">0</span>)
+      🛍️ Cart (<span id="count">0</span>)
     </button>
   </header>
 
+
+  <!-- Hero Section -->
   <section class="hero">
+
     <h2>Ghar Ka Saaman, Ab Online!</h2>
-    <p>Fresh groceries aur daily essentials ek hi jagah.</p>
+
+    <p>
+      Fresh grocery products at best prices.
+    </p>
 
     <input
-      type="text"
-      id="search"
       class="search"
+      id="search"
+      type="text"
       placeholder="🔍 Product search kare..."
-      onkeyup="searchProducts()"
+      onkeyup="searchProduct()"
     >
+
   </section>
 
+
+  <!-- Products -->
   <section class="products">
-    <h2>Our Products</h2>
 
-    <div class="product-grid" id="productGrid">
+    <h2>🛒 Our Products</h2>
 
-      <div class="product" data-name="Rice">
+    <div class="product-grid">
+
+
+      <!-- Rice -->
+      <div class="product" data-name="rice">
+
         <div class="emoji">🍚</div>
+
         <h3>Rice</h3>
+
         <p class="price">₹60 / kg</p>
-        <button class="add-btn" onclick="addToCart('Rice', 60)">
+
+        <button
+          class="add-btn"
+          onclick="add('Rice', 60)"
+        >
           Add to Cart
         </button>
+
       </div>
 
-      <div class="product" data-name="Wheat">
+
+      <!-- Wheat -->
+      <div class="product" data-name="wheat">
+
         <div class="emoji">🌾</div>
+
         <h3>Wheat</h3>
+
         <p class="price">₹45 / kg</p>
-        <button class="add-btn" onclick="addToCart('Wheat', 45)">
+
+        <button
+          class="add-btn"
+          onclick="add('Wheat', 45)"
+        >
           Add to Cart
         </button>
+
       </div>
 
-      <div class="product" data-name="Dal">
+
+      <!-- Dal -->
+      <div class="product" data-name="dal">
+
         <div class="emoji">🫘</div>
+
         <h3>Dal</h3>
+
         <p class="price">₹110 / kg</p>
-        <button class="add-btn" onclick="addToCart('Dal', 110)">
+
+        <button
+          class="add-btn"
+          onclick="add('Dal', 110)"
+        >
           Add to Cart
         </button>
+
       </div>
 
-      <div class="product" data-name="Sugar">
+
+      <!-- Sugar -->
+      <div class="product" data-name="sugar">
+
         <div class="emoji">🍬</div>
+
         <h3>Sugar</h3>
+
         <p class="price">₹45 / kg</p>
-        <button class="add-btn" onclick="addToCart('Sugar', 45)">
+
+        <button
+          class="add-btn"
+          onclick="add('Sugar', 45)"
+        >
           Add to Cart
         </button>
+
       </div>
 
-      <div class="product" data-name="Oil">
+
+      <!-- Cooking Oil -->
+      <div class="product" data-name="oil">
+
         <div class="emoji">🫗</div>
+
         <h3>Cooking Oil</h3>
+
         <p class="price">₹140 / litre</p>
-        <button class="add-btn" onclick="addToCart('Cooking Oil', 140)">
+
+        <button
+          class="add-btn"
+          onclick="add('Cooking Oil', 140)"
+        >
           Add to Cart
         </button>
+
       </div>
 
-      <div class="product" data-name="Biscuit">
+
+      <!-- Biscuits -->
+      <div class="product" data-name="biscuit">
+
         <div class="emoji">🍪</div>
+
         <h3>Biscuits</h3>
+
         <p class="price">₹30</p>
-        <button class="add-btn" onclick="addToCart('Biscuits', 30)">
+
+        <button
+          class="add-btn"
+          onclick="add('Biscuits', 30)"
+        >
           Add to Cart
         </button>
+
       </div>
 
-      <div class="product" data-name="Tea">
+
+      <!-- Tea -->
+      <div class="product" data-name="tea">
+
         <div class="emoji">☕</div>
+
         <h3>Tea</h3>
+
         <p class="price">₹120</p>
-        <button class="add-btn" onclick="addToCart('Tea', 120)">
+
+        <button
+          class="add-btn"
+          onclick="add('Tea', 120)"
+        >
           Add to Cart
         </button>
+
       </div>
 
-      <div class="product" data-name="Milk">
+
+      <!-- Milk -->
+      <div class="product" data-name="milk">
+
         <div class="emoji">🥛</div>
+
         <h3>Milk</h3>
+
         <p class="price">₹30</p>
-        <button class="add-btn" onclick="addToCart('Milk', 30)">
+
+        <button
+          class="add-btn"
+          onclick="add('Milk', 30)"
+        >
           Add to Cart
         </button>
+
       </div>
 
     </div>
+
   </section>
 
+
+  <!-- About -->
   <section class="about">
-    <h2>About Our Store</h2>
+
+    <h2>About Us</h2>
+
     <p>
-      Apni Kirana Store mein aapko daily-use grocery products
+      Apni Kirana Store par daily-use grocery products
       affordable prices par milte hain.
     </p>
+
   </section>
 
+
+  <!-- Footer -->
   <footer>
+
     <p>📍 Your City | 📞 9876543210</p>
+
+    <br>
+
     <p>© 2026 Apni Kirana Store</p>
+
   </footer>
+
 
   <!-- Cart -->
   <div class="cart" id="cart">
 
-    <button class="close-btn" onclick="closeCart()">✕</button>
+    <button
+      class="close"
+      onclick="closeCart()"
+    >
+      ✕
+    </button>
 
     <h2>🛒 Your Cart</h2>
 
-    <div id="cartItems"></div>
+    <div id="items"></div>
 
     <h3>
       Total: ₹<span id="total">0</span>
     </h3>
 
-    <button class="checkout" onclick="checkout()">
+    <button
+      class="order"
+      onclick="orderWhatsApp()"
+    >
       📱 Order on WhatsApp
     </button>
 
   </div>
 
-  <script>
-    let cart = [];
 
-    function addToCart(name, price) {
-      cart.push({
-        name: name,
-        price: price
-      });
-
-      updateCart();
-      alert(name + " cart mein add ho gaya!");
-    }
-
-    function updateCart() {
-      const cartItems = document.getElementById("cartItems");
-      const cartCount = document.getElementById("cartCount");
-      const totalElement = document.getElementById("total");
-
-      cartItems.innerHTML = "";
-
-      let total = 0;
-
-      cart.forEach((item, index) => {
-        total += item.price;
-
-        cartItems.innerHTML += `
-          <div class="cart-item">
-            <span>${item.name} - ₹${item.price}</span>
-            <button class="remove-btn" onclick="removeItem(${index})">
-              Remove
-            </button>
-          </div>
-        `;
-      });
-
-      cartCount.innerText = cart.length;
-      totalElement.innerText = total;
-    }
-
-    function removeItem(index) {
-      cart.splice(index, 1);
-      updateCart();
-    }
-
-    function openCart() {
-      document.getElementById("cart").classList.add("open");
-    }
-
-    function closeCart() {
-      document.getElementById("cart").classList.remove("open");
-    }
-
-    function searchProducts() {
-      const search =
-        document.getElementById("search").value.toLowerCase();
-
-      const products =
-        document.querySelectorAll(".product");
-
-      products.forEach(product => {
-        const name =
-          product.dataset.name.toLowerCase();
-
-        if (name.includes(search)) {
-          product.style.display = "block";
-        } else {
-          product.style.display = "none";
-        }
-      });
-    }
-
-    function checkout() {
-
-      if (cart.length === 0) {
-        alert("Pehle cart mein products add karo.");
-        return;
-      }
-
-      let message = "Hello, mujhe ye products order karne hain:%0A%0A";
-
-      cart.forEach(item => {
-        message +=
-          item.name + " - ₹" + item.price + "%0A";
-      });
-
-      let total = cart.reduce(
-        (sum, item) => sum + item.price,
-        0
-      );
-
-      message += "%0ATotal: ₹" + total;
-
-      // Apna WhatsApp number yahan daalo
-      let phone = "919876543210";
-
-      window.open(
-        "https://wa.me/" + phone + "?text=" + message,
-        "_blank"
-      );
-    }
-  </script>
+  <!-- JavaScript file -->
+  <script src="script.js"></script>
 
 </body>
 </html>
